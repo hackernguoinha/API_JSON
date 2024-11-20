@@ -1,17 +1,17 @@
-import { engine } from 'express-handlebars';
 import express from 'express';
+import { engine } from 'express-handlebars';
+import routes from './routes/api.js';
 
-const app = request()
-const port = 3000
+const app = express();
+const port = 3000;
 
+app.use(express.static('src/public'));
 app.engine('handlebars', engine());
 app.set('view engine', 'handlebars');
 app.set('views', 'src/views');
 
-app.get('/', (req, res) => {
-  res.render('home')
-})
+routes(app);
 
 app.listen(port, () => {
   console.log('Server run: ', port)
-})
+});
