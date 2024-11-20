@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "express": "^4.21.1",
+    "express-handlebars": "^8.0.1",
+    "nodemon": "^3.1.7"
+  },
+  "type": "module",
+  "scripts": {
+    "start": "nodemon node src/index.js"
+  }
+}
