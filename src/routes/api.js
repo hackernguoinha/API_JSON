@@ -1,9 +1,7 @@
-import { studentController, testController } from "../controllers/apiController.js";
+import express from "express";
+import { createOrderController } from "../controllers/apiController.js";
+const router = express.Router()
 
-const routes = (app) => {
-    app.get('/test', testController);
-    app.get('/', studentController);
-    
-}
+router.post('/order', createOrderController);
 
-export default routes
+export default router
