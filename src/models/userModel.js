@@ -1,1 +1,0 @@
-//Lấy dữ liệu của các bảng nếu có database
