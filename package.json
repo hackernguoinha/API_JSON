@@ -2,6 +2,7 @@
   "dependencies": {
     "express": "^4.21.1",
     "express-handlebars": "^8.0.1",
+    "mongoose": "^8.8.2",
     "nodemon": "^3.1.7"
   },
   "type": "module",
