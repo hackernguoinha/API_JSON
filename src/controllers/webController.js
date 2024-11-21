@@ -1,4 +1,5 @@
 import {checkAPIAndUpdate, addData } from "../services/apiService.js";
+import { registerDynamicRoutes } from "../routes/dynamicRouter.js";
 
 export const homeController = (req, res) => {
     res.render('home')
@@ -20,6 +21,7 @@ export const editAPIController = async (req, res) => {
             const response = await addData(user, apiID, pathData, null, resData);
             console.log("Add new success!");
         }
+        await registerDynamicRoutes();
         return res.redirect('/view')
     } else {
         return res.json({
