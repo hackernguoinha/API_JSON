@@ -1,33 +1,23 @@
+import { addData, getAPI } from "../services/apiService.js";
+
 export const studentController = (req, res) => {
     res.send('hihihihihihi')
 };
-export const testController = (req, res) => {
-    return res.json({
-        status: 'err',
-        message: "Thiếu trường email hoặc password"
-    })
+export const testController = async (req, res) => {
+    const response = await addData("A", 1, "abc/ef/ght/v2", {"test1":"abc","test2":"cde"}, {"test1":"abc","test2":"cde"})
+    return res.json(response)
 };
-export const createOrderController = (req, res) => {
+export const createOrderController = async (req, res) => {
     const {invoiceNo, terminalId} = req.body; // tương đương req.body.email, req.body.password, req.body.name
     console.log(req.body)
-    try {
-        if(terminalId && terminalId){
-            console.log('Đầy đủ thông tin')
-            return res.json({
-                errorCode: '0000',
-                message: "Thành công"
-            })
-        } else {
-            return res.json({
-                status: 'err',
-                message: "Thiếu trường"
-            })
-        }
-    } catch (error) {
-        console.log(error)
+    if(terminalId){
+        const response = await getAPI({terminalId})
+        return res.json(response)
+    } else {
         return res.json({
             status: 'err',
-            message: "Lỗi xử lý"
+            message: "Thiếu trường"
         })
     }
+    
 };

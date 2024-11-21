@@ -5,10 +5,11 @@ const Schema = mongoose.Schema;
 const ObjectId = Schema.ObjectId;
 
 const APIDataSchema = new Schema({
-  user: ObjectId,
+  user: String,
   apiID: Number,
+  pathData: String,
   reqData: Object,
   resData: Object
 });
 
-const APIData = mongoose.model('APIData', APIDataSchema)
+export const APIData = mongoose.model('APIData', APIDataSchema)
