@@ -5,6 +5,6 @@ const router = express.Router()
 router.use(express.urlencoded({ extended: true }));
 
 router.get('/', homeController)
-router.post('/edit-api1', editAPIController);
+router.post('/edit-api', editAPIController);
 
 export default router

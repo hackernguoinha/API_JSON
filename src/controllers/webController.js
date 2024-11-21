@@ -1,8 +1,30 @@
-import {checkAPIAndUpdate, addData } from "../services/apiService.js";
+import {checkAPIAndUpdate, addData, getAllData} from "../services/apiService.js";
 import { registerDynamicRoutes } from "../routes/dynamicRouter.js";
 
-export const homeController = (req, res) => {
-    res.render('home')
+export const homeController = async (req, res) => {
+    const result = await getAllData();
+    const data = {};
+    result.forEach(element => {
+        if(element.apiID == 1){
+            data.pathData1 = element.pathData;
+            data.resData1 = element.resData;
+        } else if(element.apiID == 2){
+            data.pathData2 = element.pathData;
+            data.resData2 = element.resData;
+        } else if(element.apiID == 3){
+            data.pathData3 = element.pathData;
+            data.resData3 = element.resData;
+        } else if(element.apiID == 4){
+            data.pathData4 = element.pathData;
+            data.resData4 = element.resData;
+        } else if(element.apiID == 5){
+            data.pathData5 = element.pathData;
+            data.resData5 = element.resData;
+        }
+    });
+    console.log(data);
+    
+    res.render('home', data)
 };
 
 export const editAPIController = async (req, res) => {
