@@ -37,21 +37,15 @@ export const getAllData = () => {
     })
 }
 
-export const getAPI = (terminalId) => {
+export const getAPIByPath = (path) => {
     return new Promise(async(resolve, reject) => {
         try {
-            if(terminalId){
-                console.log('Đầy đủ thông tin')
-                resolve({
-                    errorCode: '0000',
-                    message: "Thành công"
-                })
-            } else {
-                resolve({
-                    status: 'err',
-                    message: "Thiếu trường"
-                })
-            }
+            const customePath = path.slice(1);
+            console.log(customePath);
+            const resp = await APIData.findOne({pathData: customePath});
+            console.log(resp.resData);
+            console.log('Resp data success!')
+            resolve(resp.resData)
         } catch (error) {
             console.log(error)
             reject({

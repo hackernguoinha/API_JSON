@@ -1,5 +1,5 @@
 import express from "express";
-import { createOrderController as respAPIController, testController } from "../controllers/apiController.js";
+import {respAPIController, testController } from "../controllers/apiController.js";
 import { getAllData } from "../services/apiService.js";
 const router = express.Router()
 
