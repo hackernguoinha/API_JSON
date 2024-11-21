@@ -11,6 +11,7 @@ export const registerDynamicRoutes = async () => {
         allData.forEach(element => {
             console.log('/' + element.pathData);
             dynRouter.post('/' + element.pathData, respAPIController);
+            dynRouter.get('/' + element.pathData, respAPIController);
         });
     } catch (error) {
         console.log(error);

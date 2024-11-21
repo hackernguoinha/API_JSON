@@ -40,8 +40,9 @@ export const respAPIController = async (req, res) => {
     console.log(req.body)
     console.log("----------------end request--------------------")
     if(req.body){
-        const response = await getAPIByPath(req.path)
-        return res.json(response)
+        const response = await getAPIByPath(req.path);
+        let jsonResponse = typeof response === 'string' ? JSON.parse(response) : response
+        return res.json(jsonResponse)
     } else {
         return res.json({
             status: 'err',
