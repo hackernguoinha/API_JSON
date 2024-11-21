@@ -1,1 +1,76 @@
-<h1>Example App: Home</h1>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a class="brand-link" style="text-align: center;">
+      <span class="brand-text font-weight-light">USER A</span>
+    </a>
+      <!-- Sidebar Menu -->
+    <nav class="mt-2">
+    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <li class="nav-header">USERS</li>
+        <li class="nav-item">
+        <a href="#" class="nav-link">
+            <i class="nav-icon far fa-circle text-danger"></i>
+            <p class="text">User A</p>
+        </a>
+        </li>
+        <li class="nav-item">
+        <a href="#" class="nav-link">
+            <i class="nav-icon far fa-circle text-warning"></i>
+            <p>User B</p>
+        </a>
+        </li>
+        <li class="nav-item">
+        <a href="#" class="nav-link">
+            <i class="nav-icon far fa-circle text-info"></i>
+            <p>User C</p>
+        </a>
+        </li>
+    </ul>
+    </nav>
+    <!-- /.sidebar-menu -->
+    </div>
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper" style="padding-top: 10px;">
+    <!-- Main content -->
+    <section class="content">
+      <!-- API1 -->
+        <div class="card card-primary">
+            <div class="card-header">
+            <h3 class="card-title">API 1</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form method="post" action="/view/edit-api1" enctype="application/x-www-form-urlencoded">
+            <div class="card-body">
+                <input type="hidden" name="user" value="A">
+                <input type="hidden" name="apiID" value="1">
+                <div class="form-group">
+                    <label>API Path</label>
+                    <input type="text" class="form-control" id="apiPath" name="pathData" placeholder="Edit path">
+                </div>
+                <div class="form-group">
+                    <label>API Response</label>
+                    <textarea type="text" class="form-control" id="apiResp" name="resData" placeholder="Edit response"></textarea>
+                </div>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+            </form>
+        </div>
+        <!-- end API1 -->
+
+        
+    </section>
+    <!-- /.content -->
+  </div>
+</div>
+<!-- ./wrapper -->
+</body>

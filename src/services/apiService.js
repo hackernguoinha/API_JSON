@@ -55,3 +55,37 @@ export const getAPIByPath = (path) => {
         }
     })
 }
+
+export const checkAPIAndUpdate = (user, apiID, pathData, resData) => {
+    return new Promise(async(resolve, reject) => {
+        try {
+            const resp = await APIData.findOneAndUpdate(
+                { user, apiID },  // Điều kiện tìm kiếm
+                { $set: { pathData, resData} }, // Dữ liệu cần cập nhật
+                { new: true } // Trả về tài liệu sau khi cập nhật
+            );
+            resolve(resp)
+        } catch (error) {
+            console.log(error)
+            reject({
+                status: 'err',
+                message: error
+            })
+        }
+    })
+}
+
+export const getAPIByUserAPIID = (user, apiID) => {
+    return new Promise(async(resolve, reject) => {
+        try {
+            const resp = await APIData.findOne({ user, apiID });
+            resolve(resp)
+        } catch (error) {
+            console.log(error)
+            reject({
+                status: 'err',
+                message: error
+            })
+        }
+    })
+}
