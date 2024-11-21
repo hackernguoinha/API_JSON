@@ -23,6 +23,20 @@ export const addData = (user, apiID, pathData, reqData, resData) => {
         }
     })
 }
+
+export const getAllData = () => {
+    return new Promise(async(resolve, reject) => {
+        try {
+            console.log('getAllData');
+            const apiData = await APIData.find({});
+            resolve(apiData);
+        } catch (error) {
+            console.log(error);
+            reject(error);
+        }
+    })
+}
+
 export const getAPI = (terminalId) => {
     return new Promise(async(resolve, reject) => {
         try {
