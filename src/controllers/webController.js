@@ -1,5 +1,6 @@
 import {checkAPIAndUpdate, addData, getAllData} from "../services/apiService.js";
 import { registerDynamicRoutes } from "../routes/dynamicRouter.js";
+export const clients = {};
 
 export const homeController = async (req, res) => {
     const result = await getAllData();
@@ -53,3 +54,41 @@ export const editAPIController = async (req, res) => {
     }
     
 };
+
+export const viewResponseController = async (req, res) => {
+    console.log("------------------request view---------------------")
+    res.render('request');
+};
+
+export default function WebSocketController(wss) {
+    // Lắng nghe sự kiện "connection"
+    wss.on('connection', (ws) => {
+      console.log('🔌 Client connected');
+
+      // Lắng nghe tin nhắn từ client
+    ws.on('message', (message) => {
+        const data = JSON.parse(message);
+        if (data.clientId != null) {
+            const clientId = data.clientId;
+            clients[clientId] = ws;  // Lưu client vào mảng với clientId
+            console.log(`Client ${clientId} đã kết nối`);
+
+            if (clients[clientId]) {
+                clients[clientId].send(`📩 ClientID: ${clientId}`);
+            } 
+        }
+    });
+
+      // Lắng nghe sự kiện ngắt kết nối
+      ws.on('close', () => {
+        console.log('❌ Client disconnected');
+        Object.keys(clients).forEach(clientId => {
+            if (clients[clientId] === ws) {
+              delete clients[clientId];
+              console.log(`🗑️ Client "${clientId}" deleted`);
+            }
+          });
+      });
+    });
+  }
+  

@@ -3,10 +3,16 @@ import { engine } from 'express-handlebars';
 import routes from './routes/index.js';
 import mongoose from 'mongoose';
 import * as dotenv from 'dotenv';
+import { WebSocketServer } from 'ws';
+import WebSocketController from './controllers/webController.js';
 dotenv.config()
 
 const app = express();
 const port = process.env.PORT;
+const port_socket = process.env.PORT_SOCKET;
+
+//WebSocket
+export const wss = new WebSocketServer({ port: port_socket });
 
 app.use(express.static('src/public'));
 app.use(express.json());
@@ -26,6 +32,9 @@ mongoose.connect(process.env.MONGO_DB)
 
 routes(app);
 
+WebSocketController(wss);
+
 app.listen(port, () => {
   console.log('Server run: ', port)
+  console.log('Socket port: ', port_socket)
 });

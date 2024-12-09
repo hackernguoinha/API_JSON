@@ -1,0 +1,68 @@
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+  
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="" style="padding-top: 10px;">
+    <!-- Main content -->
+    <section class="content">
+      <!-- API1 -->
+        <div class="card card-primary">
+            <div class="card-header">
+              <div><h3 class="card-title">API LOG</h3></div>
+              <div style="float: right;">
+                <h3 class="card-title"><a href="/view">TRỞ VỀ</a></h3>
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: center; margin: 0px;">
+              <div class="form-group w-50 mt-1" style="display: flex; align-items: center; margin: 0px;">
+                <input type="text" id="messageInput" class="form-control" placeholder="Nhập path cần lấy log" 
+                      style="flex: 1; height: 40px; margin: 0px;"/>
+                <button id="sendButton" type="submit" class="btn btn-primary" style="height: 35px; margin-left: 5px;">Submit</button>
+              </div>
+            </div>
+            <div class="card-body" id="data-container">
+             
+            </div>
+
+            <script>
+                const container = document.getElementById('data-container');
+                
+                const SOCKET_SERVER_URL = `ws://${window.location.hostname}:3001`;
+                const socket = new WebSocket(SOCKET_SERVER_URL);
+
+                socket.onopen = () => {
+                  container.innerHTML += '<p>✅ Đã kết nối với server!</p>';
+                  {{!-- socket.send(JSON.stringify({ clientId: '/man1' })); --}}
+                };
+
+                socket.onmessage = (event) => {
+                  container.innerHTML += '<p>' + event.data +'</p>';
+                };
+
+                socket.onerror = (error) => {
+                  container.innerHTML += '<p>❌ Lỗi server: ' + error.message + '</p>';
+                };
+
+                socket.onclose = () => {
+                  container.innerHTML += '<p>❌ Kết nối đã đóng.</p>';
+                };
+
+                document.getElementById('sendButton').addEventListener('click', () => {
+                  const message = document.getElementById('messageInput').value;
+                  if (message) {
+                    socket.send(JSON.stringify({ clientId: "/" + message }));
+                  }
+                });
+            </script>
+        </div>
+        <!-- end API1 -->
+        
+    </section>
+    <!-- /.content -->
+  </div>
+</div>
+<!-- ./wrapper -->
+</body>

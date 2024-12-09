@@ -1,4 +1,6 @@
 import { addData, getAPIByPath } from "../services/apiService.js";
+import { wss } from "../index.js";
+import { clients } from "../controllers/webController.js";
 
 export const studentController = (req, res) => {
     res.send('hihihihihihi')
@@ -40,8 +42,26 @@ export const respAPIController = async (req, res) => {
     console.log(req.body)
     console.log("----------------end request--------------------")
     if(req.body){
-        const response = await getAPIByPath(req.path);
+        const path = req.path;
+        const response = await getAPIByPath(path);
         let jsonResponse = typeof response === 'string' ? JSON.parse(response) : response
+        
+        if (clients[path]) { 
+            const jsonBodyString = JSON.stringify(req.body, null, 2);
+            const jsonHeaderString = JSON.stringify(req.headers, null, 2);
+            const jsonResponseString = JSON.stringify(jsonResponse, null, 2);
+            clients[path].send(
+                '<div style="margin: 0px; border: 0.5px solid greenyellow; padding: 5px;">'
+                + '<p style="padding: 0px; text-align: center; color: blueviolet; margin: 0px;">GÓI TIN TỪ POS</p>' 
+                + '<p style="padding: 0px; margin: 0px; color: royalblue;">Header</p>'
+                + '<pre style="padding: 0px; margin: 0px;">' + jsonHeaderString + '</pre>'
+                + '<p style="padding: 0px; margin: 0px; color: royalblue;">Body</p>'
+                + '<pre style="padding: 0px; margin: 0px;">' + jsonBodyString + '</pre>'
+                + '<p style="padding: 0px; text-align: center; color: blueviolet; margin: 0px;">GÓI TIN HOST PHẢN HỒI</p>'
+                + '<p style="padding: 0px; margin: 0px; color: royalblue;">Body</p>'
+                + '<pre style="padding: 0px; margin: 0px;">' + jsonResponseString + '</pre></div>');
+        }
+        
         return res.json(jsonResponse)
     } else {
         return res.json({
